@@ -52,7 +52,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /greetings/cn/actions/
+      - path: /greetings/hm/actions/
         pathType: Prefix
         backend:
           service:
