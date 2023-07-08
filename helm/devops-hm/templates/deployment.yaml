@@ -48,8 +48,6 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
-      imagePullSecrets:
-        - name: my-docker-reg
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
