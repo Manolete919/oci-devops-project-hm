@@ -47,6 +47,7 @@ steps:
       cat Chart.yaml
       helm package .
       helm registry login ${HELM_REPO} -u ${HELM_REPO_USER} -p ${USER_AUTH_TOKEN}
+      echo push to ${HELM_REPO_URL}
       helm push *.tgz ${HELM_REPO_URL}
       
 outputArtifacts:
