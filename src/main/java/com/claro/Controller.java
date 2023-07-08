@@ -10,7 +10,7 @@ public class Controller {
 	@GetMapping(value = "/hello/{name}", produces = { "application/json" })
 	public String hello(@PathVariable String name) {
 
-		return "Hola desde Blue/Green todo exitos: " + name;
+		return "Hola desde HELMET: " + name;
 
 	}
 

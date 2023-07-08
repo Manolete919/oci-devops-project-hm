@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: devops-project-cn
+  name: devops-project-hm
   namespace: mgr
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: devops-project-cn
+      app: devops-project-hm
   template:
     metadata:
       labels:
-        app: devops-project-cn
+        app: devops-project-hm
     spec:
       containers:
-      - name: devops-project-cn
+      - name: devops-project-hm
         #image: ${OCIR_HOST}/${OCIR_STORAGE_NAMESPACE}/devops-project/oci-devops-project:${APPLICATION_VERSION}
-        image: iad.ocir.io/id6dibaakt36/devops-project/oci-devops-project-cn:latest
+        image: iad.ocir.io/id6dibaakt36/devops-project/oci-devops-project-hm:latest
         imagePullPolicy: Always
         ports:
         - name: service-port
@@ -34,12 +34,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: svc-devops-project-cn
+  name: svc-devops-project-hm
   namespace: mgr
 spec:
   type: ClusterIP
   selector:
-    app: devops-project-cn
+    app: devops-project-hm
   ports:
     - name: service-ports
       protocol: TCP
@@ -48,7 +48,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-devops-cn
+  name: ingress-devops-hm
   namespace: mgr
 spec:
   ingressClassName: nginx
@@ -59,6 +59,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: svc-devops-project-cn
+            name: svc-devops-project-hm
             port:
               number: 8090
