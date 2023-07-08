@@ -34,6 +34,21 @@ steps:
       docker build  --tag oci-devops-project:latest --file Dockerfile . 
       echo images are
       docker images 
+      
+  - type: Command
+    timeoutInSeconds: 1200
+    name: "Helm Build"
+    command: |
+      cd ${OCI_PRIMARY_SOURCE_DIR}/helm/devops-hm
+      originalChartfile="Chart.yaml"
+      tmpChartfile=$(mktemp)
+      cp --attributes-only --preserve $originalChartfile $tmpChartfile
+      cat $originalChartfile | envsubst > $tmpChartfile && mv $tmpChartfile $originalChartfile
+      cat Chart.yaml
+      helm package .
+      helm registry login ${HELM_REPO} -u ${HELM_REPO_USER} -p ${USER_AUTH_TOKEN}
+      helm push *.tgz ${HELM_REPO_URL}
+      
 outputArtifacts:
   - name: oci_devops_project_image
     type: DOCKER_IMAGE
